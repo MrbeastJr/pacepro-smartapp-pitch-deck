@@ -1,19 +1,300 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Chalkboard, DeviceMobile, Wallet, Users, MapPin, BookOpen, ChatCircle, Brain, CalendarCheck, Globe, X } from '@phosphor-icons/react'
+import { Chalkboard, DeviceMobile, Wallet, Users, MapPin, BookOpen, ChatCircle, Brain, CalendarCheck, Globe, X, CheckCircle, GraduationCap } from '@phosphor-icons/react'
 
 const containerVariants = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.1 } } }
 const itemVariants = { hidden: { opacity: 0, x: -20 }, show: { opacity: 1, x: 0, transition: { duration: 0.5, ease: 'easeOut' as const } } }
 
+/* ── Feature data with comprehensive descriptions ── */
 const features = [
-  { id: 'geo', icon: MapPin, label: 'Geo-Fenced Attendance', color: '#DC2626', desc: 'Secure location-based check-ins ensuring students are physically present within a 50m radius of the lecture hall.' },
-  { id: 'ebook', icon: BookOpen, label: 'E-Book Store', color: '#F59E0B', desc: 'A built-in marketplace for lecturers to publish course materials and students to purchase them securely.' },
-  { id: 'social', icon: ChatCircle, label: 'CampusHub Social', color: '#3B82F6', desc: 'A real-time forum for students to discuss topics, share resources, and connect with peers across faculties.' },
-  { id: 'ai', icon: Brain, label: 'AI Study Assistant', color: '#8B5CF6', desc: 'Gemini-powered tutor that helps students understand complex topics, summarize notes, and prepare for exams.' },
-  { id: 'referral', icon: Users, label: 'Referral Network', color: '#10B981', desc: 'Incentivized growth loop rewarding students and lecturers for onboarding their peers to the platform.' },
-  { id: 'planner', icon: CalendarCheck, label: 'Study Planner', color: '#EC4899', desc: 'Automated scheduling tool syncing with course timetables to help students manage deadlines effectively.' },
+  {
+    id: 'geo', icon: MapPin, label: 'Geo-Fenced Attendance', color: '#DC2626',
+    image: '/features/geo.png',
+    desc: 'Secure location-based check-ins ensuring students are physically present within a 50m radius of the lecture hall. Uses GPS + Wi-Fi triangulation for maximum accuracy.',
+    details: [
+      'Real-time GPS verification with 50m radius enforcement',
+      'Anti-spoofing protection prevents mock location apps',
+      'Lecturers create sessions with one tap — students check in automatically',
+      'Attendance history with analytics for both students and lecturers',
+      'WebSocket-powered live counter shows check-ins in real time',
+    ],
+  },
+  {
+    id: 'ebook', icon: BookOpen, label: 'E-Book Store', color: '#F59E0B',
+    image: '/features/ebook.png',
+    desc: 'A built-in marketplace where lecturers publish course materials as PDFs, set their own prices in Naira, and earn 80% of every sale — paid directly to their Monnify wallet.',
+    details: [
+      'Lecturers upload PDFs via Cloudinary with instant publishing',
+      'Reader-mode compliant — passes Apple App Store guidelines',
+      'Monnify-powered payments with automatic 80/20 revenue split',
+      'Students purchase once, access forever — synced across devices',
+      'Category browsing, search, and faculty-based recommendations',
+    ],
+  },
+  {
+    id: 'social', icon: ChatCircle, label: 'CampusHub Social', color: '#3B82F6',
+    image: null,
+    desc: 'A real-time social forum for students to discuss topics, share resources, and connect with peers across faculties. Built with Django Channels WebSockets for instant messaging.',
+    details: [
+      'Real-time feed with posts, likes, comments, and threaded replies',
+      'Direct messaging with online/offline presence indicators',
+      'Faculty-based channels for targeted academic discussions',
+      'Community Spotlight for promoting events, brands, and announcements',
+      'Push notifications for mentions, replies, and DMs',
+    ],
+  },
+  {
+    id: 'ai', icon: Brain, label: 'AI Study Assistant', color: '#8B5CF6',
+    image: null,
+    desc: 'Gemini-powered AI tutor that helps students understand complex topics, summarize lecture notes, generate practice questions, and prepare for exams — all within the app.',
+    details: [
+      'Powered by Google Gemini API for accurate academic responses',
+      'Context-aware — understands your enrolled courses and syllabus',
+      'Generates practice quizzes and explains solutions step-by-step',
+      'Summarizes uploaded lecture notes and PDFs automatically',
+      'Chat history saved for revision and follow-up questions',
+    ],
+  },
+  {
+    id: 'referral', icon: Users, label: 'Referral Network', color: '#10B981',
+    image: null,
+    desc: 'Incentivized growth engine rewarding students and lecturers for onboarding peers. Every successful referral earns real money deposited directly to their platform wallet.',
+    details: [
+      'Unique referral links for every user with tracking analytics',
+      'Multi-tier rewards — earn from direct and indirect referrals',
+      'Real-time earnings dashboard with withdrawal to bank account',
+      'Leaderboard system gamifies growth across departments',
+      'Lecturers earn bonus commissions for referring other lecturers',
+    ],
+  },
+  {
+    id: 'planner', icon: CalendarCheck, label: 'Study Planner', color: '#EC4899',
+    image: null,
+    desc: 'Automated scheduling tool that syncs with your course timetable, tracks assignment deadlines, and sends smart reminders so you never miss an exam or submission.',
+    details: [
+      'Auto-imports course schedule from your registered courses',
+      'Color-coded calendar with weekly and monthly views',
+      'Smart reminders via push notifications before deadlines',
+      'Task checklist with priority levels and completion tracking',
+      'Integrates with attendance data to show your academic overview',
+    ],
+  },
 ]
 
+/* ── Inline Mockup Components (based on real PacePro app screens) ── */
+
+function AttendanceMockup() {
+  return (
+    <div className="absolute inset-0 flex flex-col" style={{ background: 'linear-gradient(135deg, #DC2626, #991B1B)' }}>
+      <div className="px-4 pt-5 pb-3 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
+          <span className="text-[9px] font-black uppercase tracking-widest text-white/90">LIVE ATTENDANCE</span>
+        </div>
+        <span className="text-[9px] px-2 py-0.5 rounded bg-black/25 text-white font-bold">50m RADIUS</span>
+      </div>
+      <div className="px-4 flex-1 flex flex-col justify-center">
+        <div className="text-3xl font-black text-white tracking-tight">ECO 201</div>
+        <div className="text-xs text-white/80 font-semibold mt-1">Micro Economics II · Prof. Adebayo</div>
+        <div className="text-xs text-white/70 font-medium mt-1">Tap to mark your presence now!</div>
+      </div>
+      <div className="px-4 pb-4 flex items-end justify-between">
+        <div className="flex items-center gap-1.5 bg-black/25 px-3 py-2 rounded-xl">
+          <MapPin size={12} weight="fill" color="white" />
+          <span className="text-[10px] font-bold text-white">Hall 404</span>
+        </div>
+        <div className="text-right bg-white/10 px-3 py-1.5 rounded-lg">
+          <span className="text-[8px] text-white/70 font-black uppercase tracking-widest block">Ends at</span>
+          <span className="text-sm font-black text-white">11:30 AM</span>
+        </div>
+      </div>
+      <MapPin size={100} weight="thin" color="white" className="absolute right-[-15px] bottom-[-10px] opacity-[0.06] -rotate-12" />
+    </div>
+  )
+}
+
+function CommunityMockup() {
+  return (
+    <div className="absolute inset-0 flex flex-col bg-[#0a0a0a]">
+      <div className="px-4 pt-4 pb-3 flex items-center justify-between border-b border-white/10">
+        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-500 to-blue-700" />
+        <span className="text-sm font-extrabold text-white">Community</span>
+        <div className="w-7 h-7 rounded-lg bg-white/10" />
+      </div>
+      <div className="px-4 pt-3">
+        <span className="text-xs font-bold text-white mb-2 block">Community Spotlight</span>
+        <div className="flex gap-2 overflow-hidden">
+          <div className="w-24 h-16 rounded-xl bg-gradient-to-br from-amber-600 to-amber-800 flex-shrink-0 flex items-end p-2">
+            <span className="text-[7px] font-bold text-white/90">BUSINESS</span>
+          </div>
+          <div className="w-24 h-16 rounded-xl bg-gradient-to-br from-purple-600 to-purple-900 flex-shrink-0 flex items-end p-2">
+            <span className="text-[7px] font-bold text-white/90">EVENT</span>
+          </div>
+        </div>
+      </div>
+      <div className="px-4 pt-3">
+        <span className="text-xs font-bold text-white mb-2 block">Your Channels</span>
+        {['General Chat', 'CSC Dept', 'Memes & Fun'].map((ch, i) => (
+          <div key={i} className="flex items-center gap-2.5 py-2 border-b border-white/5">
+            <div className="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center">
+              <ChatCircle size={14} color={i === 0 ? '#C9A84C' : '#666'} weight="duotone" />
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center gap-1.5">
+                <span className="text-[10px] font-bold text-white">{ch}</span>
+                {i === 0 && <span className="text-[6px] px-1 py-0.5 rounded bg-[#C9A84C] text-black font-black">MAIN</span>}
+              </div>
+              <span className="text-[8px] text-white/40">12 members</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function AIMockup() {
+  return (
+    <div className="absolute inset-0 flex flex-col bg-[#0a0a0a]">
+      <div className="px-4 pt-4 pb-3 border-b border-white/10 text-center">
+        <span className="text-sm font-extrabold text-white">AI Study Assistant</span>
+        <div className="text-[9px] text-purple-400 font-bold">Powered by Gemini</div>
+      </div>
+      <div className="flex-1 px-4 pt-3 space-y-3 overflow-hidden">
+        <div className="self-end ml-auto max-w-[75%] bg-purple-600 rounded-2xl rounded-br-sm px-3 py-2">
+          <span className="text-[10px] text-white">Explain supply and demand curves in micro economics</span>
+        </div>
+        <div className="max-w-[85%] bg-white/5 border border-white/10 rounded-2xl rounded-bl-sm px-3 py-2">
+          <span className="text-[10px] text-white/80 leading-relaxed">The <b className="text-purple-300">supply curve</b> shows the relationship between price and quantity supplied. As price increases, producers are willing to supply more...</span>
+        </div>
+        <div className="self-end ml-auto max-w-[60%] bg-purple-600 rounded-2xl rounded-br-sm px-3 py-2">
+          <span className="text-[10px] text-white">Generate 3 practice questions</span>
+        </div>
+      </div>
+      <div className="px-4 py-3 border-t border-white/10">
+        <div className="flex items-center gap-2 bg-white/5 rounded-xl px-3 py-2">
+          <span className="text-[10px] text-white/30 flex-1">Ask anything about your courses...</span>
+          <Brain size={14} color="#8B5CF6" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function ReferralMockup() {
+  return (
+    <div className="absolute inset-0 flex flex-col bg-[#0a0a0a]">
+      <div className="px-4 pt-4 pb-3 border-b border-white/10">
+        <span className="text-sm font-extrabold text-white">Referral Dashboard</span>
+      </div>
+      <div className="px-4 pt-3 space-y-3">
+        <div className="grid grid-cols-2 gap-2">
+          <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3 text-center">
+            <div className="text-lg font-black text-emerald-400">12</div>
+            <div className="text-[8px] text-white/50 font-bold uppercase">Referrals</div>
+          </div>
+          <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3 text-center">
+            <div className="text-lg font-black text-emerald-400">₦24k</div>
+            <div className="text-[8px] text-white/50 font-bold uppercase">Earned</div>
+          </div>
+        </div>
+        <div className="bg-white/5 border border-white/10 rounded-xl p-3">
+          <div className="text-[8px] text-white/40 font-bold uppercase mb-1">Your Link</div>
+          <div className="text-[9px] text-[#C9A84C] font-mono truncate">pacepro.app/ref/240611035</div>
+        </div>
+        <div className="text-[9px] text-white/40 font-bold uppercase mt-1">Recent Referrals</div>
+        {['Adewale J.', 'Folake M.'].map((n, i) => (
+          <div key={i} className="flex items-center gap-2 py-1.5">
+            <div className="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-[8px] text-emerald-400 font-bold">{n[0]}</div>
+            <span className="text-[10px] text-white/70 flex-1">{n}</span>
+            <span className="text-[8px] text-emerald-400 font-bold">+₦2,000</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function PlannerMockup() {
+  return (
+    <div className="absolute inset-0 flex flex-col bg-[#0a0a0a]">
+      <div className="px-4 pt-4 pb-3 border-b border-white/10 flex items-center justify-between">
+        <span className="text-sm font-extrabold text-white">Study Planner</span>
+        <span className="text-[9px] px-2 py-0.5 bg-pink-500/20 text-pink-400 font-bold rounded">PRIORITY</span>
+      </div>
+      <div className="px-4 pt-3 space-y-2">
+        {[
+          { title: 'Economics Essay', course: 'ECO 201', due: '2h left', color: '#EC4899', pct: 85 },
+          { title: 'Lab Report Draft', course: 'PHY 102', due: '1d left', color: '#F59E0B', pct: 40 },
+          { title: 'Group Presentation', course: 'BUS 301', due: '3d left', color: '#10B981', pct: 15 },
+        ].map((t, i) => (
+          <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-3">
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-[10px] font-bold text-white">{t.title}</span>
+              <span className="text-[8px] font-bold" style={{ color: t.color }}>{t.due}</span>
+            </div>
+            <span className="text-[8px] text-white/40 font-bold">{t.course}</span>
+            <div className="mt-2 h-1 rounded bg-white/10">
+              <div className="h-full rounded" style={{ width: `${t.pct}%`, background: t.color }} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function AcademicMockup() {
+  return (
+    <div className="absolute inset-0 flex flex-col bg-[#0a0a0a]">
+      <div className="px-4 pt-4 pb-3 border-b border-white/10">
+        <span className="text-sm font-extrabold text-white">E-Book Store</span>
+      </div>
+      <div className="px-4 pt-3">
+        <div className="flex gap-2 mb-3 overflow-hidden">
+          {[
+            { code: 'ECO 201', color: '#0A3B7C' },
+            { code: 'BUS 301', color: '#C9A84C' },
+            { code: 'PHY 102', color: '#1A1A1A' },
+          ].map((b, i) => (
+            <div key={i} className="w-16 h-24 rounded-lg flex-shrink-0 flex flex-col justify-between p-2 relative overflow-hidden" style={{ background: b.color }}>
+              <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-black/20" />
+              <span className="text-[7px] font-black text-white/80 tracking-wider">{b.code}</span>
+              <div className="h-0.5 rounded bg-white/30 mt-auto">
+                <div className="h-full rounded bg-white/60" style={{ width: `${60 + i * 15}%` }} />
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="text-[9px] text-white/40 font-bold uppercase mb-2">Featured</div>
+        <div className="bg-gradient-to-r from-amber-700 to-amber-900 rounded-xl p-3">
+          <span className="text-[7px] bg-[#C9A84C] text-black px-1.5 py-0.5 rounded font-black">BESTSELLER</span>
+          <div className="text-xs font-bold text-white mt-1.5">Principles of Micro Economics</div>
+          <div className="text-[9px] text-white/60 mt-0.5">Prof. Adebayo · ₦2,500</div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/* ── Mockup Router ── */
+function MockupVisual({ feature }: { feature: typeof features[0] }) {
+  if (feature.image) {
+    return <img src={feature.image} alt={feature.label} className="w-full h-full object-cover" />
+  }
+  const mockups: Record<string, () => React.ReactNode> = {
+    social: CommunityMockup,
+    ai: AIMockup,
+    referral: ReferralMockup,
+    planner: PlannerMockup,
+    geo: AttendanceMockup,
+    ebook: AcademicMockup,
+  }
+  const Comp = mockups[feature.id]
+  return Comp ? <Comp /> : null
+}
+
+/* ── Main Slide ── */
 export function SolutionSlide() {
   const [activeFeature, setActiveFeature] = useState<typeof features[0] | null>(null)
 
@@ -49,12 +330,10 @@ export function SolutionSlide() {
             <motion.div variants={containerVariants} className="space-y-2 pt-2">
               {[
                 { icon: Chalkboard, title: 'Lecturer Portal', desc: 'Web dashboard for attendance, materials, e-books, wallet, and referrals.' },
-                { icon: DeviceMobile, title: 'Student Mobile App', desc: 'iOS & Android via Expo — GPS attendance, AI tutor, community hub, study tools.' },
-                { icon: Wallet, title: 'Payment Portal', desc: 'Clearance plans, e-book purchases — reader-mode compliant for App Store.' },
+                { icon: DeviceMobile, title: 'Student Mobile App', desc: 'iOS & Android via Expo — GPS attendance, AI tutor, community hub.' },
+                { icon: Wallet, title: 'Payment Portal', desc: 'Clearance plans, e-book purchases — reader-mode compliant.' },
               ].map((item, i) => (
-                <motion.div
-                  key={i}
-                  variants={itemVariants}
+                <motion.div key={i} variants={itemVariants}
                   className="flex items-start gap-3 p-3 rounded-xl transition-all duration-300 cursor-default"
                   style={{ border: '1px solid transparent' }}
                   onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--dark-border)'; e.currentTarget.style.background = 'var(--dark-card)' }}
@@ -72,32 +351,21 @@ export function SolutionSlide() {
             </motion.div>
           </motion.div>
 
-          {/* Right: Feature grid bento */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="relative"
-          >
+          {/* Right: Clickable feature grid */}
+          <motion.div initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }} className="relative">
             <div className="absolute inset-0 rounded-3xl opacity-15 blur-3xl"
                  style={{ background: 'radial-gradient(circle, var(--gold) 0%, transparent 70%)' }} />
-
             <div className="grid grid-cols-2 gap-3 relative z-10">
               {features.map((f, i) => (
-                <motion.div
-                  key={f.id}
-                  layoutId={`card-${f.id}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 + i * 0.08 }}
-                  onClick={() => setActiveFeature(f)}
-                  className="deck-card flex flex-col items-center text-center p-5 group cursor-pointer hover:bg-white/5 transition-colors"
-                >
-                  <motion.div layoutId={`icon-container-${f.id}`} className="w-12 h-12 rounded-2xl flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110"
+                <motion.div key={f.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 + i * 0.08 }} onClick={() => setActiveFeature(f)}
+                  className="deck-card flex flex-col items-center text-center p-5 group cursor-pointer hover:bg-white/5 transition-colors">
+                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110"
                        style={{ background: `${f.color}15` }}>
                     <f.icon size={24} weight="duotone" color={f.color} />
-                  </motion.div>
-                  <motion.span layoutId={`title-${f.id}`} className="text-xs font-bold text-white">{f.label}</motion.span>
+                  </div>
+                  <span className="text-xs font-bold text-white">{f.label}</span>
                 </motion.div>
               ))}
             </div>
@@ -105,74 +373,50 @@ export function SolutionSlide() {
         </div>
       </div>
 
-      {/* Expandable Modal Overlay */}
+      {/* ── Expanding Modal ── */}
       <AnimatePresence>
         {activeFeature && (
           <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setActiveFeature(null)}
-              className="absolute inset-0 z-40 bg-black/60 backdrop-blur-md"
-            />
-            <div className="absolute inset-0 z-50 flex items-center justify-center p-8 pointer-events-none">
-              <motion.div
-                layoutId={`card-${activeFeature.id}`}
-                className="deck-card relative w-full max-w-2xl bg-[#0a0a0a] border border-[#222] shadow-2xl overflow-hidden pointer-events-auto flex flex-col md:flex-row"
-                style={{ padding: 0 }}
-              >
-                <button 
-                  onClick={() => setActiveFeature(null)}
-                  className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-10"
-                >
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              onClick={() => setActiveFeature(null)} className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-lg" />
+            <div className="fixed inset-0 z-[101] flex items-center justify-center p-6 pointer-events-none">
+              <motion.div initial={{ opacity: 0, scale: 0.9, y: 30 }} animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: 30 }} transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                className="w-full max-w-3xl rounded-2xl border overflow-hidden pointer-events-auto flex flex-col md:flex-row"
+                style={{ background: '#0a0a0a', borderColor: '#222', boxShadow: '0 25px 80px -12px rgba(0,0,0,0.8)' }}>
+
+                <button onClick={() => setActiveFeature(null)}
+                  className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-10">
                   <X size={16} weight="bold" color="white" />
                 </button>
 
+                {/* Content */}
                 <div className="flex-1 p-8 flex flex-col justify-center">
-                  <motion.div layoutId={`icon-container-${activeFeature.id}`} className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6"
+                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5"
                        style={{ background: `${activeFeature.color}15` }}>
-                    <activeFeature.icon size={32} weight="duotone" color={activeFeature.color} />
-                  </motion.div>
-                  <motion.h3 layoutId={`title-${activeFeature.id}`} className="text-2xl font-bold text-white mb-4">
-                    {activeFeature.label}
-                  </motion.h3>
-                  <motion.p 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="text-sm leading-relaxed" 
-                    style={{ color: 'var(--text-secondary)' }}
-                  >
-                    {activeFeature.desc}
-                  </motion.p>
-                </div>
-                
-                {/* Visual Placeholder / Mockup Area */}
-                <motion.div 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.3 }}
-                  className="flex-1 min-h-[250px] md:min-h-full border-l border-[#222] relative overflow-hidden bg-[#111]"
-                >
-                  {/* Decorative background matching icon color */}
-                  <div className="absolute inset-0 opacity-20"
-                       style={{ background: `radial-gradient(circle at 50% 50%, ${activeFeature.color}, transparent 70%)` }} />
-                  
-                  {/* Mockup visual representation */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-[80%] h-[80%] rounded-xl border border-white/10 bg-black/40 backdrop-blur-sm shadow-2xl flex items-center justify-center relative overflow-hidden">
-                      {/* Top bar mockup */}
-                      <div className="absolute top-0 left-0 right-0 h-6 border-b border-white/10 bg-white/5 flex items-center px-3 gap-1.5">
-                        <div className="w-2 h-2 rounded-full bg-red-500/80" />
-                        <div className="w-2 h-2 rounded-full bg-yellow-500/80" />
-                        <div className="w-2 h-2 rounded-full bg-green-500/80" />
-                      </div>
-                      
-                      <activeFeature.icon size={64} weight="thin" color={activeFeature.color} className="opacity-50" />
-                    </div>
+                    <activeFeature.icon size={28} weight="duotone" color={activeFeature.color} />
                   </div>
-                </motion.div>
+                  <h3 className="text-2xl font-black text-white mb-3">{activeFeature.label}</h3>
+                  <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--text-secondary)' }}>
+                    {activeFeature.desc}
+                  </p>
+                  <div className="space-y-2.5">
+                    {activeFeature.details.map((d, i) => (
+                      <motion.div key={i} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.15 + i * 0.06 }}
+                        className="flex items-start gap-2 text-xs" style={{ color: 'var(--text-secondary)' }}>
+                        <CheckCircle size={14} weight="fill" color={activeFeature.color} className="flex-shrink-0 mt-0.5" />
+                        <span>{d}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Visual Mockup */}
+                <div className="flex-1 min-h-[280px] md:min-h-full border-t md:border-t-0 md:border-l relative overflow-hidden"
+                     style={{ borderColor: '#222', background: '#111' }}>
+                  <MockupVisual feature={activeFeature} />
+                </div>
               </motion.div>
             </div>
           </>
