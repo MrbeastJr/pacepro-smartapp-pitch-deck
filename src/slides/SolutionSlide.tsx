@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Chalkboard, DeviceMobile, Wallet, Users, MapPin, BookOpen, ChatCircle, Brain, CalendarCheck, Globe, X, CheckCircle, GraduationCap } from '@phosphor-icons/react'
+import { Chalkboard, DeviceMobile, Wallet, Users, MapPin, BookOpen, ChatCircle, Brain, CalendarCheck, Globe, X, CheckCircle, GraduationCap, ChartBar, Clock, PaperPlaneTilt, Exam } from '@phosphor-icons/react'
 
 const containerVariants = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.1 } } }
 const itemVariants = { hidden: { opacity: 0, x: -20 }, show: { opacity: 1, x: 0, transition: { duration: 0.5, ease: 'easeOut' as const } } }
@@ -77,6 +77,54 @@ const features = [
       'Smart reminders via push notifications before deadlines',
       'Task checklist with priority levels and completion tracking',
       'Integrates with attendance data to show your academic overview',
+    ],
+  },
+  {
+    id: 'lec-dash', icon: ChartBar, label: 'Lecturer Dashboard', color: '#0F172A',
+    image: null,
+    desc: 'A premium bento-grid web dashboard giving lecturers a bird\'s-eye view of student outreach, wallet balance, earnings, referral stats, and recent attendance sessions.',
+    details: [
+      'Bento-grid layout with student outreach, wallet, and earnings cards',
+      'Live attendance session history with present-count analytics',
+      'Referral network intelligence with student-level tracking',
+      'Monnify wallet integration with real-time balance display',
+      'Institutional milestone progress bars and tier tracking',
+    ],
+  },
+  {
+    id: 'lec-schedule', icon: Clock, label: 'Class Scheduling', color: '#0EA5E9',
+    image: null,
+    desc: 'Lecturers build and manage their weekly timetable from the portal. Sessions sync to students\' apps in real time and support iCal export for Google/Apple Calendar.',
+    details: [
+      '7-day weekly planner with drag-and-drop session management',
+      'Color-coded session types: Lecture, Tutorial, Lab, Seminar',
+      'iCal feed integration for Google, Apple, Outlook calendars',
+      'One-click sync pushes schedule changes to all enrolled students',
+      'Program-specific filtering (Full-Time, Part-Time, Sandwich)',
+    ],
+  },
+  {
+    id: 'lec-updates', icon: PaperPlaneTilt, label: 'Send Updates', color: '#6366F1',
+    image: null,
+    desc: 'Lecturers broadcast announcements, lecture materials, and important notices directly to students\' mobile feeds with real-time view tracking and engagement analytics.',
+    details: [
+      'Three dispatch types: Announcement, Material, Assignment',
+      'File attachment support for PDFs, slides, and documents',
+      'Real-time view counter with per-student engagement tracking',
+      'Category filters and search for managing dispatch history',
+      'Push notifications sent instantly to all enrolled students',
+    ],
+  },
+  {
+    id: 'lec-assign', icon: Exam, label: 'Assignment Center', color: '#D97706',
+    image: null,
+    desc: 'Create and manage assignments with due dates, file attachments, and automatic deadline tracking. Students see progress bars counting down to submission deadlines.',
+    details: [
+      'Create assignments with due dates and file attachments',
+      'Automatic deadline progress bars visible to students',
+      'View submission status and student engagement per assignment',
+      'Supports course-specific and program-specific targeting',
+      'Integrated with student planner for automatic reminders',
     ],
   },
 ]
@@ -277,6 +325,131 @@ function AcademicMockup() {
   )
 }
 
+function LecturerDashMockup() {
+  return (
+    <div className="absolute inset-0 flex flex-col bg-[#fafafa] text-[#111]">
+      <div className="px-4 pt-4 pb-2 border-b border-black/5">
+        <div className="text-[8px] font-black uppercase tracking-widest text-[#7C4F30] mb-0.5">Academic Session 2025/2026</div>
+        <div className="text-lg font-black tracking-tight text-[#111]">Dashboard <span className="text-black/20 font-light mx-1">/</span> <span className="text-black/40 font-medium">Professor</span></div>
+      </div>
+      <div className="px-4 pt-3 grid grid-cols-2 gap-2">
+        <div className="bg-white rounded-2xl p-3 border border-black/5">
+          <div className="text-[7px] font-bold uppercase tracking-widest text-black/40 mb-1">Student Outreach</div>
+          <div className="text-2xl font-light tracking-tight">1,240</div>
+          <div className="flex gap-0.5 mt-2 h-5 items-end">{[35,55,40,75,50,85,65].map((h,i)=><div key={i} className="flex-1 rounded-sm bg-black/5" style={{height:`${h}%`}}/>)}</div>
+        </div>
+        <div className="bg-white rounded-2xl p-3 border border-black/5">
+          <div className="text-[7px] font-bold uppercase tracking-widest text-black/40 mb-1">Wallet Balance</div>
+          <div className="flex items-baseline gap-1"><span className="text-xs text-black/40 font-bold">₦</span><span className="text-2xl font-light tracking-tight">125,450</span></div>
+        </div>
+        <div className="col-span-2 bg-white rounded-2xl p-3 border border-black/5">
+          <div className="text-[7px] font-bold uppercase tracking-widest text-black/40 mb-1">Recent Attendance</div>
+          {[{code:'CSC401',venue:'LT2',count:124},{code:'CSC302',venue:'Hall A',count:88}].map((s,i)=>(
+            <div key={i} className="flex items-center justify-between py-1.5 border-b border-black/5 last:border-0">
+              <div><span className="text-[8px] font-black text-[#7C4F30]">{s.code}</span> <span className="text-[8px] text-black/30">· {s.venue}</span></div>
+              <span className="text-[9px] font-light text-black/60">{s.count}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function ScheduleMockup() {
+  const days = ['MON','TUE','WED','THU','FRI']
+  return (
+    <div className="absolute inset-0 flex flex-col bg-[#fafafa] text-[#111]">
+      <div className="px-4 pt-4 pb-2 border-b border-black/5">
+        <div className="text-[8px] font-black uppercase tracking-widest text-[#0EA5E9] mb-0.5">Academic Timetable</div>
+        <div className="text-lg font-black tracking-tight">Schedule <span className="text-black/20 font-light mx-1">/</span> <span className="text-black/40 font-medium">Weekly</span></div>
+      </div>
+      <div className="px-3 pt-3 grid grid-cols-5 gap-1.5 flex-1">
+        {days.map((d,di)=>(
+          <div key={d} className="flex flex-col gap-1.5">
+            <div className="text-center py-1.5 rounded-lg bg-white border border-black/5">
+              <div className="text-[7px] font-black uppercase tracking-widest text-[#0EA5E9]">{d}</div>
+            </div>
+            {di < 3 && <div className="rounded-xl bg-white border border-black/5 p-2 relative overflow-hidden">
+              <div className="absolute left-0 top-1 bottom-1 w-0.5 rounded-r bg-blue-500"/>
+              <div className="text-[6px] font-black text-blue-500 uppercase pl-1.5">Lecture</div>
+              <div className="text-[7px] font-black text-[#7C4F30] pl-1.5 mt-0.5">CSC{401+di*100}</div>
+              <div className="text-[6px] text-black/40 pl-1.5">09:00–11:00</div>
+            </div>}
+            {di === 1 && <div className="rounded-xl bg-white border border-black/5 p-2 relative overflow-hidden">
+              <div className="absolute left-0 top-1 bottom-1 w-0.5 rounded-r bg-amber-500"/>
+              <div className="text-[6px] font-black text-amber-500 uppercase pl-1.5">Tutorial</div>
+              <div className="text-[7px] font-black text-[#7C4F30] pl-1.5 mt-0.5">CSC302</div>
+              <div className="text-[6px] text-black/40 pl-1.5">14:00–16:00</div>
+            </div>}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function UpdatesMockup() {
+  return (
+    <div className="absolute inset-0 flex flex-col bg-[#fafafa] text-[#111]">
+      <div className="px-4 pt-4 pb-2 border-b border-black/5 flex items-center justify-between">
+        <div>
+          <div className="text-[8px] font-black uppercase tracking-widest text-[#6366F1] mb-0.5">Institutional Broadcasts</div>
+          <div className="text-base font-black tracking-tight">Updates</div>
+        </div>
+        <div className="text-[8px] px-2 py-1 bg-[#0F172A] text-white rounded-lg font-bold">+ New</div>
+      </div>
+      <div className="px-4 pt-3 space-y-2">
+        {[
+          {type:'ANNOUNCEMENT',code:'CSC401',title:'Mid-term Project Guidelines',color:'#3B82F6',views:245},
+          {type:'MATERIAL',code:'CSC401',title:'Lecture 8: Neural Networks',color:'#10B981',views:95},
+          {type:'ASSIGNMENT',code:'CSC302',title:'Lab Exercise 4: Sorting',color:'#F59E0B',views:88},
+        ].map((u,i)=>(
+          <div key={i} className="bg-white rounded-2xl p-3 border border-black/5 flex items-start gap-3">
+            <div className="w-8 h-8 rounded-xl flex-shrink-0 flex items-center justify-center" style={{background:`${u.color}15`}}>
+              <PaperPlaneTilt size={14} color={u.color} weight="duotone"/>
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-1.5 mb-0.5">
+                <span className="text-[7px] font-black px-1.5 py-0.5 rounded bg-[#0F172A] text-white">{u.code}</span>
+                <span className="text-[7px] font-bold px-1.5 py-0.5 rounded border" style={{color:u.color,borderColor:`${u.color}30`,background:`${u.color}08`}}>{u.type}</span>
+              </div>
+              <div className="text-[9px] font-bold text-[#111] truncate">{u.title}</div>
+            </div>
+            <div className="text-[8px] text-black/40 font-bold">{u.views}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function AssignmentMockup() {
+  return (
+    <div className="absolute inset-0 flex flex-col bg-[#0a0a0a]">
+      <div className="px-4 pt-4 pb-3 border-b border-white/10">
+        <span className="text-sm font-extrabold text-white">Assignment Center</span>
+      </div>
+      <div className="px-4 pt-3 space-y-2.5">
+        {[
+          {title:'Economics Essay',course:'ECO 201',due:'2h left',color:'#DC2626',pct:90},
+          {title:'Lab Report Draft',course:'PHY 102',due:'1d left',color:'#F59E0B',pct:45},
+          {title:'Group Presentation',course:'BUS 301',due:'3d left',color:'#10B981',pct:15},
+        ].map((a,i)=>(
+          <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-3">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] font-bold text-white">{a.title}</span>
+              <span className="text-[8px] font-bold" style={{color:a.color}}>{a.due}</span>
+            </div>
+            <div className="text-[8px] text-white/40 font-bold mb-2">{a.course}</div>
+            <div className="h-1 rounded bg-white/10"><div className="h-full rounded" style={{width:`${a.pct}%`,background:a.color}}/></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 /* ── Mockup Router ── */
 function MockupVisual({ feature }: { feature: typeof features[0] }) {
   if (feature.image) {
@@ -289,6 +462,10 @@ function MockupVisual({ feature }: { feature: typeof features[0] }) {
     planner: PlannerMockup,
     geo: AttendanceMockup,
     ebook: AcademicMockup,
+    'lec-dash': LecturerDashMockup,
+    'lec-schedule': ScheduleMockup,
+    'lec-updates': UpdatesMockup,
+    'lec-assign': AssignmentMockup,
   }
   const Comp = mockups[feature.id]
   return Comp ? <Comp /> : null
@@ -356,16 +533,16 @@ export function SolutionSlide() {
             transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }} className="relative">
             <div className="absolute inset-0 rounded-3xl opacity-15 blur-3xl"
                  style={{ background: 'radial-gradient(circle, var(--gold) 0%, transparent 70%)' }} />
-            <div className="grid grid-cols-2 gap-3 relative z-10">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 relative z-10">
               {features.map((f, i) => (
                 <motion.div key={f.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 + i * 0.08 }} onClick={() => setActiveFeature(f)}
-                  className="deck-card flex flex-col items-center text-center p-5 group cursor-pointer hover:bg-white/5 transition-colors">
-                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110"
-                       style={{ background: `${f.color}15` }}>
-                    <f.icon size={24} weight="duotone" color={f.color} />
+                  transition={{ delay: 0.4 + i * 0.06 }} onClick={() => setActiveFeature(f)}
+                  className="deck-card flex flex-col items-center text-center py-5 px-3 group cursor-pointer hover:bg-white/5 transition-colors">
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-2.5 transition-transform duration-300 group-hover:scale-110"
+                       style={{ background: `${f.color}12` }}>
+                    <f.icon size={20} weight="duotone" color={f.color} />
                   </div>
-                  <span className="text-xs font-bold text-white">{f.label}</span>
+                  <span className="text-[10px] font-bold text-white leading-tight">{f.label}</span>
                 </motion.div>
               ))}
             </div>
