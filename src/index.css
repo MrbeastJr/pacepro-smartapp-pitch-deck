@@ -1,0 +1,225 @@
+@import "tailwindcss";
+
+/* ── Design tokens ─────────────────────────────────────────── */
+:root {
+  --gold: #C9A84C;
+  --gold-dim: #A8893A;
+  --gold-light: rgba(201, 168, 76, 0.15);
+  --dark: #0A0A0A;
+  --dark-card: #111111;
+  --dark-border: #1E1E1E;
+  --text-primary: #FFFFFF;
+  --text-secondary: #999999;
+  --text-muted: #555555;
+}
+
+/* ── Base ───────────────────────────────────────────────────── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: var(--dark);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Scrollbar hide ─────────────────────────────────────────── */
+::-webkit-scrollbar { display: none; }
+
+/* ── Typography ─────────────────────────────────────────────── */
+.font-display { font-family: 'Playfair Display', serif; }
+
+/* ── Subtle noise texture overlay ───────────────────────────── */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+}
+
+/* ── Gold glow ──────────────────────────────────────────────── */
+.gold-glow {
+  text-shadow: 0 0 40px rgba(201, 168, 76, 0.2);
+}
+
+/* ── Slide layout ───────────────────────────────────────────── */
+.slide {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.slide-inner {
+  max-width: 1100px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── Accent divider ─────────────────────────────────────────── */
+.gold-divider {
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-dim));
+  border-radius: 2px;
+  margin: 1.5rem 0;
+}
+
+/* ── Card ────────────────────────────────────────────────────── */
+.deck-card {
+  background: var(--dark-card);
+  border: 1px solid var(--dark-border);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.deck-card:hover {
+  border-color: var(--gold);
+  box-shadow: 0 0 30px rgba(201, 168, 76, 0.08);
+  transform: translateY(-2px);
+}
+
+/* ── Badge ───────────────────────────────────────────────────── */
+.deck-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid var(--dark-border);
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: var(--gold-light);
+}
+
+/* ── Nav dots ────────────────────────────────────────────────── */
+.nav-dots {
+  position: fixed;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 50;
+}
+
+.nav-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.nav-dot.active {
+  background: var(--gold);
+  transform: scale(1.3);
+  box-shadow: 0 0 8px rgba(201, 168, 76, 0.5);
+}
+
+/* ── Progress bar ────────────────────────────────────────────── */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-dim));
+  z-index: 60;
+  transition: width 0.4s ease;
+}
+
+/* ── Slide counter ───────────────────────────────────────────── */
+.slide-counter {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  z-index: 50;
+  letter-spacing: 0.1em;
+}
+
+/* ── Keyboard hint ───────────────────────────────────────────── */
+.key-hint {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 50;
+}
+
+.key-hint kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--dark-border);
+  border-radius: 6px;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  background: var(--dark-card);
+}
+
+/* ── Stat block ──────────────────────────────────────────────── */
+.stat-value {
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 0.4rem;
+  font-weight: 500;
+}
+
+/* ── Step indicator ──────────────────────────────────────────── */
+.step-line {
+  width: 2px;
+  background: linear-gradient(180deg, var(--gold) 0%, transparent 100%);
+}
+
+/* ── Grid background decoration ──────────────────────────────── */
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .slide { padding: 1.5rem; }
+  .stat-value { font-size: 2rem; }
+  .nav-dots { right: 1rem; }
+  .key-hint { display: none; }
+}
