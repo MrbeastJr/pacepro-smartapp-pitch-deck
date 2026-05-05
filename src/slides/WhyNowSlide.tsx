@@ -5,22 +5,22 @@ const reasons = [
   {
     icon: TrendUp,
     title: 'Digital Transformation is Inevitable',
-    desc: 'Nigerian universities are under increasing pressure to digitize operations. NUC mandates are pushing for technology adoption.',
+    desc: 'Nigerian universities are under increasing pressure from NUC mandates to digitize operations. The window for a first-mover advantage is closing fast.',
   },
   {
     icon: ShieldCheck,
     title: 'App Store & Play Store Compliant',
-    desc: 'Reader-mode architecture ensures no payment flows in the mobile app. All purchases on web. Fully compliant with Apple & Google policies.',
+    desc: 'Reader-mode architecture ensures no payment flows in the mobile app — all purchases happen on web. Fully compliant with Apple & Google policies.',
   },
   {
     icon: Brain,
     title: 'AI-Native Platform',
-    desc: 'Gemini-powered AI assistant for flashcards, quizzes, document processing, and audio transcription. Students get a personal tutor.',
+    desc: 'Gemini-powered AI assistant for flashcards, quizzes, document processing, and audio transcription. Every student gets a personal tutor.',
   },
   {
     icon: Database,
     title: 'Production-Grade Infrastructure',
-    desc: 'Django + PostgreSQL + Redis + Celery. WebSockets for real-time. Cloudinary for files. Not a prototype — a deployed system.',
+    desc: 'Django + PostgreSQL + Redis + Celery. WebSockets for real-time updates. Cloudinary for files. Not a prototype — a deployed, battle-tested system.',
   },
   {
     icon: Plugs,
@@ -30,7 +30,7 @@ const reasons = [
   {
     icon: CloudCheck,
     title: 'Already Live on Railway',
-    desc: '5 production services running: web server, Celery worker, Celery beat, Redis, PostgreSQL. Zero downtime deployment.',
+    desc: '5 production services running 24/7: web server, Celery worker, Celery beat, Redis, PostgreSQL. Zero downtime deployment.',
   },
 ]
 
@@ -39,7 +39,7 @@ export function WhyNowSlide() {
     <div className="slide">
       <div className="grid-bg" />
       <div className="slide-inner">
-        <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="deck-badge mb-6">
+        <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="deck-badge mb-3 sm:mb-4 md:mb-6">
           Why Now
         </motion.span>
 
@@ -47,7 +47,7 @@ export function WhyNowSlide() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="font-display text-4xl md:text-5xl font-black text-center"
+          className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-center px-4"
         >
           The timing is{' '}
           <span style={{ color: 'var(--gold)' }}>perfect</span>
@@ -55,18 +55,18 @@ export function WhyNowSlide() {
 
         <div className="gold-divider mx-auto" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-5 mt-5 sm:mt-7 md:mt-10 w-full">
           {reasons.map((r, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 25 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 + i * 0.08 }}
               className="deck-card"
             >
-              <r.icon size={28} weight="duotone" color="var(--gold)" className="mb-4" />
-              <h3 className="text-sm font-bold text-white mb-2">{r.title}</h3>
-              <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{r.desc}</p>
+              <r.icon size={24} weight="duotone" color="var(--gold)" className="mb-2.5 sm:mb-3 md:mb-4 sm:w-7 sm:h-7" />
+              <h3 className="text-xs sm:text-sm font-bold text-white mb-1 sm:mb-2">{r.title}</h3>
+              <p className="text-[10px] sm:text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{r.desc}</p>
             </motion.div>
           ))}
         </div>

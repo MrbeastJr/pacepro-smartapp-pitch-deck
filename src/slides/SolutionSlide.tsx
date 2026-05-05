@@ -479,49 +479,54 @@ export function SolutionSlide() {
     <div className="slide relative">
       <div className="grid-bg" />
       <div className="slide-inner">
-        <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div className="w-full flex flex-col lg:grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-16 items-center">
 
           {/* Left: Pitch */}
-          <motion.div variants={containerVariants} initial="hidden" animate="show" className="space-y-6">
+          <motion.div variants={containerVariants} initial="hidden" animate="show" className="space-y-4 sm:space-y-5 lg:space-y-6 order-1">
             <motion.div variants={itemVariants}>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border"
+              <div className="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border"
                    style={{ borderColor: 'var(--dark-border)', background: 'var(--dark-card)' }}>
                 <Globe size={14} weight="fill" color="var(--gold)" />
-                <span className="text-[10px] font-bold tracking-widest uppercase" style={{ color: 'var(--gold)' }}>
+                <span className="text-[9px] sm:text-[10px] font-bold tracking-widest uppercase" style={{ color: 'var(--gold)' }}>
                   03 / The Solution
                 </span>
               </div>
             </motion.div>
 
-            <motion.h2 variants={itemVariants} className="font-display text-4xl md:text-5xl font-black leading-tight">
+            {/* Solution illustration (mobile/tablet only) */}
+            <motion.div variants={itemVariants} className="block lg:hidden">
+              <img src="/images/solution.png" alt="PacePro unified platform" className="slide-illustration" />
+            </motion.div>
+
+            <motion.h2 variants={itemVariants} className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-tight">
               One platform.{' '}
               <span className="bg-gradient-to-r from-[var(--gold)] to-[var(--gold-dim)] bg-clip-text text-transparent">
                 Every stakeholder.
               </span>
             </motion.h2>
 
-            <motion.p variants={itemVariants} className="text-base leading-relaxed max-w-md" style={{ color: 'var(--text-secondary)' }}>
+            <motion.p variants={itemVariants} className="text-xs sm:text-sm md:text-base leading-relaxed max-w-md" style={{ color: 'var(--text-secondary)' }}>
               Three connected interfaces — mobile app, lecturers portal, and payment portal — all powered by one unified backend with real-time synchronization.
             </motion.p>
 
-            <motion.div variants={containerVariants} className="space-y-2 pt-2">
+            <motion.div variants={containerVariants} className="space-y-1.5 sm:space-y-2 pt-1 sm:pt-2">
               {[
                 { icon: Chalkboard, title: 'Lecturer Portal', desc: 'Web dashboard for attendance, materials, e-books, wallet, and referrals.' },
                 { icon: DeviceMobile, title: 'Student Mobile App', desc: 'iOS & Android via Expo — GPS attendance, AI tutor, community hub.' },
                 { icon: Wallet, title: 'Payment Portal', desc: 'Clearance plans, e-book purchases — reader-mode compliant.' },
               ].map((item, i) => (
                 <motion.div key={i} variants={itemVariants}
-                  className="flex items-start gap-3 p-3 rounded-xl transition-all duration-300 cursor-default"
+                  className="flex items-start gap-2.5 sm:gap-3 p-2 sm:p-3 rounded-lg sm:rounded-xl transition-all duration-300 cursor-default"
                   style={{ border: '1px solid transparent' }}
                   onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--dark-border)'; e.currentTarget.style.background = 'var(--dark-card)' }}
                   onMouseLeave={e => { e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.background = 'transparent' }}
                 >
-                  <div className="p-2.5 rounded-lg flex-shrink-0" style={{ background: 'var(--gold-light)' }}>
-                    <item.icon size={20} weight="duotone" color="var(--gold)" />
+                  <div className="p-1.5 sm:p-2.5 rounded-md sm:rounded-lg flex-shrink-0" style={{ background: 'var(--gold-light)' }}>
+                    <item.icon size={16} weight="duotone" color="var(--gold)" className="sm:w-5 sm:h-5" />
                   </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-white">{item.title}</h4>
-                    <p className="text-xs mt-0.5" style={{ color: 'var(--text-muted)' }}>{item.desc}</p>
+                  <div className="min-w-0">
+                    <h4 className="text-xs sm:text-sm font-bold text-white">{item.title}</h4>
+                    <p className="text-[10px] sm:text-xs mt-0.5" style={{ color: 'var(--text-muted)' }}>{item.desc}</p>
                   </div>
                 </motion.div>
               ))}
@@ -530,19 +535,34 @@ export function SolutionSlide() {
 
           {/* Right: Clickable feature grid */}
           <motion.div initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }} className="relative">
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }} className="relative order-2 w-full">
+
+            {/* Desktop illustration */}
+            <div className="hidden lg:block mb-4">
+              <img src="/images/solution.png" alt="PacePro unified platform" className="slide-illustration" />
+            </div>
+
             <div className="absolute inset-0 rounded-3xl opacity-15 blur-3xl"
                  style={{ background: 'radial-gradient(circle, var(--gold) 0%, transparent 70%)' }} />
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 relative z-10">
+            <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-5 gap-2 sm:gap-3 lg:gap-4 relative z-10">
               {features.map((f, i) => (
-                <motion.div key={f.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 + i * 0.06 }} onClick={() => setActiveFeature(f)}
-                  className="deck-card flex flex-col items-center text-center py-5 px-3 group cursor-pointer hover:bg-white/5 transition-colors">
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-2.5 transition-transform duration-300 group-hover:scale-110"
+                <motion.div key={f.id} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 + i * 0.04 }} onClick={() => setActiveFeature(f)}
+                  className="deck-card flex flex-col items-center text-center py-3 sm:py-4 lg:py-5 px-1.5 sm:px-2 lg:px-3 group cursor-pointer hover:bg-white/5 transition-colors">
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 rounded-lg sm:rounded-xl flex items-center justify-center mb-1.5 sm:mb-2 lg:mb-2.5 transition-transform duration-300 group-hover:scale-110"
                        style={{ background: `${f.color}12` }}>
-                    <f.icon size={20} weight="duotone" color={f.color} />
+                    <f.icon size={16} weight="duotone" color={f.color} className="sm:w-[18px] sm:h-[18px] lg:w-5 lg:h-5" />
                   </div>
-                  <span className="text-[10px] font-bold text-white leading-tight">{f.label}</span>
+                  <span className="text-[8px] sm:text-[9px] lg:text-[10px] font-bold text-white leading-tight">{f.label}</span>
+                  <span
+                    className="mt-1 text-[6px] sm:text-[7px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{
+                      color: 'var(--gold)',
+                      animation: 'blink-hint 1.8s ease-in-out infinite',
+                    }}
+                  >
+                    tap ↗
+                  </span>
                 </motion.div>
               ))}
             </div>
@@ -556,32 +576,32 @@ export function SolutionSlide() {
           <>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={() => setActiveFeature(null)} className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-lg" />
-            <div className="fixed inset-0 z-[101] flex items-center justify-center p-6 pointer-events-none">
+            <div className="fixed inset-0 z-[101] flex items-end sm:items-center justify-center p-2 sm:p-4 md:p-6 pointer-events-none">
               <motion.div initial={{ opacity: 0, scale: 0.9, y: 30 }} animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9, y: 30 }} transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                className="w-full max-w-3xl rounded-2xl border overflow-hidden pointer-events-auto flex flex-col md:flex-row"
+                className="w-full max-w-3xl max-h-[90vh] sm:max-h-[85vh] rounded-t-2xl sm:rounded-2xl border overflow-hidden pointer-events-auto flex flex-col md:flex-row"
                 style={{ background: '#0a0a0a', borderColor: '#222', boxShadow: '0 25px 80px -12px rgba(0,0,0,0.8)' }}>
 
                 <button onClick={() => setActiveFeature(null)}
-                  className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-10">
-                  <X size={16} weight="bold" color="white" />
+                  className="absolute top-3 right-3 sm:top-4 sm:right-4 p-1.5 sm:p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-10">
+                  <X size={14} weight="bold" color="white" className="sm:w-4 sm:h-4" />
                 </button>
 
                 {/* Content */}
-                <div className="flex-1 p-8 flex flex-col justify-center">
-                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5"
+                <div className="flex-1 p-4 sm:p-6 md:p-8 flex flex-col justify-center overflow-y-auto">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center mb-3 sm:mb-4 md:mb-5"
                        style={{ background: `${activeFeature.color}15` }}>
-                    <activeFeature.icon size={28} weight="duotone" color={activeFeature.color} />
+                    <activeFeature.icon size={22} weight="duotone" color={activeFeature.color} className="sm:w-6 sm:h-6 md:w-7 md:h-7" />
                   </div>
-                  <h3 className="text-2xl font-black text-white mb-3">{activeFeature.label}</h3>
-                  <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--text-secondary)' }}>
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-black text-white mb-2 sm:mb-3">{activeFeature.label}</h3>
+                  <p className="text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4 md:mb-5" style={{ color: 'var(--text-secondary)' }}>
                     {activeFeature.desc}
                   </p>
-                  <div className="space-y-2.5">
+                  <div className="space-y-1.5 sm:space-y-2 md:space-y-2.5">
                     {activeFeature.details.map((d, i) => (
                       <motion.div key={i} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.15 + i * 0.06 }}
-                        className="flex items-start gap-2 text-xs" style={{ color: 'var(--text-secondary)' }}>
+                        className="flex items-start gap-1.5 sm:gap-2 text-[10px] sm:text-xs" style={{ color: 'var(--text-secondary)' }}>
                         <CheckCircle size={14} weight="fill" color={activeFeature.color} className="flex-shrink-0 mt-0.5" />
                         <span>{d}</span>
                       </motion.div>
@@ -590,7 +610,7 @@ export function SolutionSlide() {
                 </div>
 
                 {/* Visual Mockup */}
-                <div className="flex-1 min-h-[280px] md:min-h-full border-t md:border-t-0 md:border-l relative overflow-hidden"
+                <div className="flex-1 min-h-[200px] sm:min-h-[250px] md:min-h-full border-t md:border-t-0 md:border-l relative overflow-hidden"
                      style={{ borderColor: '#222', background: '#111' }}>
                   <MockupVisual feature={activeFeature} />
                 </div>
