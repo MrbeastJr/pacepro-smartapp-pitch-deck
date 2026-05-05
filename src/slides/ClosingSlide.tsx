@@ -74,7 +74,7 @@ export function ClosingSlide() {
             <Envelope size={22} weight="duotone" color="var(--gold)" className="flex-shrink-0 sm:w-6 sm:h-6" />
             <div className="text-left">
               <p className="text-xs sm:text-sm font-bold text-white">Contact the Team</p>
-              <p className="text-[10px] sm:text-xs" style={{ color: 'var(--text-secondary)' }}>pacepro@lasu.edu.ng</p>
+              <p className="text-[10px] sm:text-xs" style={{ color: 'var(--text-secondary)' }}>lasusmartapp@gmail.com</p>
             </div>
           </div>
         </motion.div>
